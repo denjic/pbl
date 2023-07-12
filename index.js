@@ -1,23 +1,29 @@
-// Generate a random magic number between 1 and 100
 const magicNumber = Math.floor(Math.random() * 100) + 1;
 
-// Function to check if the guessed number matches the magic number
+
 function checkGuess() {
-  // Get the guessed number from the input field
   const guessedNumber = parseInt(document.getElementById("guess").value);
-
-  // Get the result element to display the outcome
   const resultElement = document.getElementById("result");
+  if(magicNumber > 50) {
+    var popup = resultElement.textContent = "Hint :The Number is greater than 50";
+    alert(popup);
+  } else{
+    var popup1 = resultElement.textContent = "Hint : The Numbers is less than 50";
+    alert(popup1);
+  }
 
-  // Check if the guessed number matches the magic number
-  if (guessedNumber === magicNumber) {
-    resultElement.textContent = "Congratulations! You found the magic number!";
-  } else if (guessedNumber > magicNumber) {
-    resultElement.textContent = "Too high. Try again!";
+  if (guessedNumber < 1 || guessedNumber > 100) {
+    alert("Please enter a number between 1 and 100."); 
   } else {
-    resultElement.textContent = "Too low. Try again!";
+    const difference = Math.abs(guessedNumber - magicNumber);
+    const percentage = Math.floor(((100 - difference) / 100) * 100);
+    
+    resultElement.textContent = `You are ${percentage}% close to the magic number.`;
+  
+    if(percentage == 100) {
+      resultElement.textContent = "Congratulations";
+    }
   }
 }
 
-// Attach the checkGuess function to the guess button's click event
 document.getElementById("checkButton").addEventListener("click", checkGuess);
